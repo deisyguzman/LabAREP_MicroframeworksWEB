@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Service Web Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .endpoint {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        .endpoint h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        .endpoint code {
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .test-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e7f3ff;
+            border-radius: 4px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+            min-height: 20px;
+        }
+        .link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Service Web Application</h1>
+        <p style="text-align: center;">Welcome to the Math Service API built with our custom web framework!</p>
+
+        <h2>Available REST Endpoints:</h2>
+
+        <div class="endpoint">
+            <h3>Hello Service</h3>
+            <p><code>GET /App/hello?name={yourName}</code></p>
+            <p>Returns a personalized greeting.</p>
+            <a class="link" href="/App/hello?name=Pedro" target="_blank">Try it: /App/hello?name=Pedro</a>
+        </div>
+
+        <div class="endpoint">
+            <h3>PI Constant</h3>
+            <p><code>GET /App/pi</code></p>
+            <p>Returns the value of PI (π).</p>
+            <a class="link" href="/App/pi" target="_blank">Try it: /App/pi</a>
+        </div>
+
+        <div class="endpoint">
+            <h3>Euler's Number</h3>
+            <p><code>GET /App/euler</code></p>
+            <p>Returns Euler's number (e).</p>
+            <a class="link" href="/App/euler" target="_blank">Try it: /App/euler</a>
+        </div>
+
+        <div class="endpoint">
+            <h3>Square Calculation</h3>
+            <p><code>GET /App/square?num={number}</code></p>
+            <p>Calculates the square of a number.</p>
+            <a class="link" href="/App/square?num=5" target="_blank">Try it: /App/square?num=5</a>
+        </div>
+
+        <div class="endpoint">
+            <h3>Sine Calculation</h3>
+            <p><code>GET /App/sin?angle={radians}</code></p>
+            <p>Calculates sine of an angle in radians.</p>
+            <a class="link" href="/App/sin?angle=1.5708" target="_blank">Try it: /App/sin?angle=1.5708 (π/2)</a>
+        </div>
+
+        <div class="endpoint">
+            <h3>Cosine Calculation</h3>
+            <p><code>GET /App/cos?angle={radians}</code></p>
+            <p>Calculates cosine of an angle in radians.</p>
+            <a class="link" href="/App/cos?angle=0" target="_blank">Try it: /App/cos?angle=0</a>
+        </div>
+
+        <div class="test-section">
+            <h3>Interactive Test</h3>
+            <p>Test the Square Calculator:</p>
+            <input type="number" id="numInput" placeholder="Enter a number" value="5">
+            <button onclick="testSquare()">Calculate Square</button>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function testSquare() {
+            const num = document.getElementById('numInput').value;
+            fetch(`/App/square?num=${num}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('result').innerHTML = '<strong>Result:</strong> ' + data;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerHTML = '<strong>Error:</strong> ' + error;
+                });
+        }
+    </script>
+</body>
+</html>
