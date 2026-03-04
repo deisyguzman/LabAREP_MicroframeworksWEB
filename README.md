@@ -103,75 +103,6 @@ mvn clean package
 java -cp target/classes com.arep.lab.MathService
 ```
 
-## Uso del Framework
-
-### Ejemplo Básico
-
-```java
-import static com.arep.lab.HttpServer.get;
-import static com.arep.lab.HttpServer.staticfiles;
-
-public class MyApp {
-    public static void main(String[] args) throws IOException {
-        // Definir ubicación de archivos estáticos
-        staticfiles("/webroot/public");
-        
-        // Definir endpoints REST
-        get("/App/hello", (req, resp) -> "Hello " + req.getValues("name"));
-        
-        get("/App/pi", (req, resp) -> {
-            return String.valueOf(Math.PI);
-        });
-        
-        // Iniciar servidor
-        HttpServer.startServer();
-    }
-}
-```
-
-### Definir Servicios REST
-
-#### Endpoint Simple
-```java
-get("/App/hello", (req, resp) -> "Hello World!");
-```
-
-#### Endpoint con Parámetros Query
-```java
-get("/App/greet", (req, resp) -> {
-    String name = req.getValues("name");
-    return "Hello, " + name + "!";
-});
-```
-
-#### Endpoint con Lógica Compleja
-```java
-get("/App/calculate", (req, resp) -> {
-    String operation = req.getValues("op");
-    String numStr = req.getValues("num");
-    
-    try {
-        double num = Double.parseDouble(numStr);
-        double result;
-        
-        switch(operation) {
-            case "square":
-                result = num * num;
-                break;
-            case "sqrt":
-                result = Math.sqrt(num);
-                break;
-            default:
-                return "Unknown operation";
-        }
-        
-        return "Result: " + result;
-    } catch (NumberFormatException e) {
-        return "Invalid number format";
-    }
-});
-```
-
 ### Configurar Archivos Estáticos
 
 ```java
@@ -274,10 +205,10 @@ Abrir en navegador: `http://localhost:8080/index.html`
 ### Capturas de Pantalla de Pruebas
 
 Las pruebas demuestran:
-- ✅ Funcionamiento correcto de endpoints REST con parámetros query
-- ✅ Servicio correcto de archivos estáticos (HTML, CSS, JavaScript)
-- ✅ Manejo apropiado de errores (parámetros faltantes, formatos inválidos)
-- ✅ Respuestas HTTP con códigos de estado correctos
+- Funcionamiento correcto de endpoints REST con parámetros query
+- Servicio correcto de archivos estáticos (HTML, CSS, JavaScript)
+- Manejo apropiado de errores (parámetros faltantes, formatos inválidos)
+- Respuestas HTTP con códigos de estado correctos
 
 ## Estructura del Proyecto
 
@@ -340,35 +271,11 @@ lab/
 - API pública clara y fácil de usar (get(), staticfiles())
 - Extensibilidad para agregar nuevos endpoints
 
-## Limitaciones Conocidas
-
-1. **Concurrencia**: El servidor procesa solicitudes secuencialmente. Para producción, se necesitaría un pool de threads.
-2. **Tipos de Contenido**: Soporta tipos comunes pero no todos los tipos MIME.
-3. **Seguridad**: No implementa HTTPS ni autenticación.
-4. **Cache**: No implementa mecanismos de cache HTTP.
-5. **POST/PUT/DELETE**: Solo soporta método GET.
-
-## Mejoras Futuras
-
-- [ ] Soporte para métodos POST, PUT, DELETE
-- [ ] Pool de threads para manejo concurrente de solicitudes
-- [ ] Soporte para HTTPS
-- [ ] Sistema de middleware/filtros
-- [ ] Soporte para sesiones
-- [ ] Compresión de respuestas (gzip)
-- [ ] Logging estructurado
-- [ ] Métricas y monitoreo
 
 ## Autor
 
-**Nombre del Estudiante**  
-Escuela Colombiana de Ingeniería Julio Garavito  
-Arquitectura Empresarial (AREP)  
-2026
+Deisy Lorena Guzmán Cabrales
 
-## Licencia
-
-Este proyecto es de código abierto y está disponible bajo la Licencia MIT.
 
 ## Referencias
 
